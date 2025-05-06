@@ -1,0 +1,23 @@
+x-common: &common 
+  logging: 
+    driver: "json-file" 
+    options: 
+      max-size: "500m" 
+      max-file: "5" 
+      compress: "true" 
+  restart: no 
+
+services: 
+  cockroachdb: 
+    <<: *common 
+    container_name: cockroachdb 
+    hostname: cockroachdb 
+    image: cockroachdb/cockroach:v23.2.5 
+    command: start-single-node --http-addr=0.0.0.0:8080 --insecure 
+    volumes: 
+      - ./cockroach-data:/cockroach/cockroach-data
+    environment: 
+      COCKROACH_DATABASE: sampledb 
+    ports: 
+      - 8383:8080
+      - 26257:26257 
