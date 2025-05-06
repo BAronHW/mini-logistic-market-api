@@ -12,7 +12,7 @@ export const AppDataSource = new DataSource({
     database: "defaultdb",
     synchronize: true,
     logging: false,
-    entities: ["src/entity/Farmer.ts", Product],
+    entities: [Farmer, Product],
     migrations: [],
     subscribers: [],
     timeTravelQueries: false
