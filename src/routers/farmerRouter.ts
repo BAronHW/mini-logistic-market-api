@@ -1,11 +1,15 @@
 import { Router } from "express";
 import { FarmerController } from "../controllers/farmerController";
+import { inject } from "inversify";
 
 export class FarmerRouter{
     private readonly _router: Router;
     private farmerController: FarmerController;
 
-    constructor(farmerController: FarmerController){
+    constructor(
+        @inject(FarmerController)
+        farmerController: FarmerController
+    ){
         this._router = Router({ strict: true });
         this.farmerController = farmerController;
         this.init();
@@ -13,6 +17,8 @@ export class FarmerRouter{
 
     private init(): void{
         this.router.get('/', this.farmerController.getAllFarmers);
+        this.router.post('/', this.farmerController.createNewFarmer);
+        this.router.delete('/:id', this.farmerController.deleteExistingFarmer);
     }
 
     public get router(): Router {

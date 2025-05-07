@@ -11,7 +11,7 @@ export class Product{
     @Column()
     description: string
 
-    @Column()
+    @Column("decimal", { precision: 10, scale: 2 })
     price: number
 
     @CreateDateColumn()
@@ -20,8 +20,19 @@ export class Product{
     @UpdateDateColumn()
     updatedAt: Date
 
-    @ManyToOne(() => Farmer, (farmer) => farmer.product)
+    @ManyToOne(() => Farmer, (farmer) => farmer.product, {
+        onDelete: 'CASCADE'
+    })
     farmer: Farmer
+
+    toJSON() {
+        return {
+            id: this.id,
+            name: this.name,
+            description: this.description,
+            price: this.price
+        };
+    }
 
 
 }

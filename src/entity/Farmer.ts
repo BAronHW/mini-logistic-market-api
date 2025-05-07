@@ -21,4 +21,13 @@ export class Farmer {
     @OneToMany(() => Product, (product) => product.farmer)
     product: Product[]
 
+    toJSON() {
+        return {
+            id: this.id,
+            name: this.name,
+            email: this.email,
+            products: this.product
+        };
+    }
+
 }
