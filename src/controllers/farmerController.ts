@@ -2,6 +2,7 @@ import { inject, injectable } from "inversify";
 import { FarmerService } from "../services/farmer.services";
 import { Request, Response } from "express";
 import { error } from "console";
+// try catch all
 
 @injectable()
 export class FarmerController{
@@ -15,9 +16,15 @@ export class FarmerController{
     }
 
     public getAllFarmers = async (req: Request, res: Response) => {
-        const allFarmers = await this.farmerService.getAllFarmers();
-        res.status(200).json({allFarmers: allFarmers});
-        return
+        try {
+            const allFarmers = await this.farmerService.getAllFarmers();
+            res.status(200).json({allFarmers: allFarmers});
+            return
+        } catch (error: any) {
+            console.log(error);
+            res.status(500).send({ message: 'Internal server error', error: error.message });
+        }
+        
     }
     
     public getSingleFarmer = async (req: Request, res: Response) => {
@@ -27,22 +34,34 @@ export class FarmerController{
             res.status(200).json({ farmer });
             return;
         }catch(error){
-            throw new Error(error)
+            console.log(error);
+            res.status(500).send({ message: 'Internal server error', error: error.message });
         }
     }
 
     public createNewFarmer = async (req: Request, res: Response) => {
-        const { email, name, products } = req.body;
-        const newFarmer = await this.farmerService.createNewFarmer(email, name, products);
-        res.status(201).json({ newFarmer });
-        return;
+        try {
+            const { email, name, products } = req.body;
+            const newFarmer = await this.farmerService.createNewFarmer(email, name, products);
+            res.status(201).json({ newFarmer });
+            return;   
+        }catch (error: any){
+            console.log(error);
+            res.status(500).send({ message: 'Internal server error', error: error.message });
+        }
     }
 
     public deleteExistingFarmer = async (req: Request, res: Response) => {
-        const farmerToDeleteId = parseInt(req.params.id);
-        await this.farmerService.deleteSingleFarmerById(farmerToDeleteId);
-        res.status(200).json({ message: "Farmer deleted successfully" });
-        return;
+        try {
+            const farmerToDeleteId = parseInt(req.params.id);
+            await this.farmerService.deleteSingleFarmerById(farmerToDeleteId);
+            res.status(200).json({ message: "Farmer deleted successfully" });
+            return;    
+        }catch(error: any) {
+            console.log(error);
+            res.status(500).send({ message: 'Internal server error', error: error.message });
+        }
+        
     }
 
 }

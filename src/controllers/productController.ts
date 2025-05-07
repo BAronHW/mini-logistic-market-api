@@ -13,30 +13,51 @@ export class productController{
     }
 
     public getAllProducts = async (req: Request, res: Response) => {
-        const allProducts = await this.productService.getAllProducts();
-        res.status(200).json({ allProducts });
-        return;
+        try {
+            const allProducts = await this.productService.getAllProducts();
+            res.status(200).json({ allProducts });
+            return;
+
+        }catch(error) {
+            res.status(500).send({ message: 'Internal server error', error: error.message });   
+        }
+        
     }
 
     public getSingleProduct = async (req: Request, res: Response) => {
-        const productId = parseInt(req.params.id);
-        const singleProduct = await this.productService.getSingleProduct(productId);
-        res.status(200).json({ singleProduct });
-        return;
+        try {
+            const productId = parseInt(req.params.id);
+            const singleProduct = await this.productService.getSingleProduct(productId);
+            res.status(200).json({ singleProduct });
+            return;
+        }catch(error){
+            res.status(500).send({ message: 'Internal server error', error: error.message });
+        }
+        
     }
 
     public deleteSingleProduct = async (req: Request, res: Response) => {
-        const productId = parseInt(req.params.id);
-        const deletedProd = await this.productService.deleteProduct(productId);
-        res.status(200).json({ deletedProd });
-        return;
+        try {
+            const productId = parseInt(req.params.id);
+            const deletedProd = await this.productService.deleteProduct(productId);
+            res.status(200).json({ deletedProd });
+            return;
+        }catch(error){
+            res.status(500).send({ message: 'Internal server error', error: error.message });
+        }
+        
     }
 
     public createProduct = async (req: Request, res: Response) => {
-        const { name, description, price, farmerId } = req.body;
-        const createdProduct = await this.productService.createProduct(name, description, price, farmerId);
-        res.status(200).json({ createdProduct });
-        return;
+        try {
+            const { name, description, price, farmerId } = req.body;
+            const createdProduct = await this.productService.createProduct(name, description, price, farmerId);
+            res.status(200).json({ createdProduct });
+            return;    
+        }catch(error){
+            res.status(500).send({ message: 'Internal server error', error: error.message });
+        }
+        
     }
 
 } 

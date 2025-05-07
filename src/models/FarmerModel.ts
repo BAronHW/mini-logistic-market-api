@@ -1,5 +1,5 @@
 import { Product } from "./ProductModel"
-
+// maybe implement some DTO of some sort
 export interface Farmer {
 
     name: string
@@ -10,5 +10,6 @@ export interface Farmer {
 
     updatedAt: Date
 
+    createdAt: Date
 
 }

@@ -9,6 +9,7 @@ import { Container } from "inversify";
 import { container } from "./inversify.config";
 import { productController } from "./controllers/productController";
 import { ProductService } from "./services/product.services";
+import 'dotenv/config';
 AppDataSource.initialize()
   .then(() => {
     const container = new Container();
@@ -22,8 +23,8 @@ AppDataSource.initialize()
     
     const application = container.get(App);
     
-    application.app.listen(3000, () => {
-        console.log(`Server running on port 3000`);
+    application.app.listen(process.env.PORT || 3000, () => {
+        console.log(`Server running on port ${process.env.PORT || 3000}`);
     });
   })
   .catch(error => console.log("Error during Data Source initialization:", error));
