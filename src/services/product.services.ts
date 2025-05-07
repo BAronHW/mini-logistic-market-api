@@ -8,9 +8,11 @@ import { Farmer } from "../entity/Farmer";
 @injectable()
 export class ProductService {
     private productRepository: Repository<Product>;
+    private farmerRepository: Repository<Farmer>;
 
     constructor() {
         this.productRepository = AppDataSource.getRepository(Product);
+        this.farmerRepository = AppDataSource.getRepository(Farmer);
     }
 
     async getAllProducts(): Promise<Product[]> {
@@ -29,34 +31,14 @@ export class ProductService {
         return true;
     }
 
-    // update prod based on id
-    // create a product
-    /**
-     * 
-     * 
-     * import { Farmer } from "./FarmerModel"
-     
-     export interface Product {
-         
-         name: string
-     
-         description: string
-         
-         price: number
-     
-         farmer: Farmer
-     
-         updatedAt: Date
-     
-     }
-     */
-
-    async createProduct(name: string, description: string, price: number, farmer?: Farmer): Promise<Product> {
+    async createProduct(name: string, description: string, price: number, farmerId: number): Promise<Product> {
+        const farmerWhoOwnsProd = await this.farmerRepository.findOneByOrFail({ id: farmerId });
         const createdProduct = new Product();
         createdProduct.name = name;
         createdProduct.description = description;
         createdProduct.price = price;
-        createdProduct.farmer = farmer;
+        createdProduct.farmer = farmerWhoOwnsProd;
+        await this.productRepository.save(createdProduct);
         return createdProduct;
     }
 }
