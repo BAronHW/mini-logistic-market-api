@@ -1,5 +1,27 @@
+import { Router } from "express";
+import { productController } from "../controllers/productController";
+import { inject, injectable } from "inversify";
+
+@injectable()
 export class productRouter{
-    constructor(){
-        
+    private readonly _router: Router;
+    private productController: productController;
+
+    constructor(
+        @inject(productController)
+        productController: productController
+    ){
+        this._router = Router({ strict: true });
+        this.productController = productController;
+        this.init()
+
+    }
+
+    private init() {
+        this.router.get('/', this.productController.getAllProducts);
+    }
+
+    public get router(): Router {
+        return this._router;
     }
 }

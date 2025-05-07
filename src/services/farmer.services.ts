@@ -20,8 +20,12 @@ export class FarmerService {
         return await this.farmerRepository.find()
     }
 
+    async getSingleFarmer(farmerId: number): Promise<Farmer> {
+        return await this.farmerRepository.findOne({ where: { id: farmerId }, relations: { product: true } })
+    }
+
     // create a new farmer
-    async createNewFarmer(email: string, name: string, products: Product[]){
+    async createNewFarmer(email: string, name: string, products: Product[]): Promise<Farmer>{
 
         // map over the products array and create new products entry in the db
 
@@ -47,7 +51,7 @@ export class FarmerService {
     }
 
     // delete single farmer by id
-    async deleteSingleFarmerById(farmerId: number) {
+    async deleteSingleFarmerById(farmerId: number): Promise<Boolean>{
         const farmerToDelete = await this.farmerRepository.findOne({
             where: {
                 id: farmerId
@@ -62,7 +66,7 @@ export class FarmerService {
     }
 
     // get farmers product
-    async getFarmersProduct(farmerId: number) {
+    async getFarmersProduct(farmerId: number): Promise<Product[]> {
         const farmerById = await this.farmerRepository.findOneByOrFail({
             id: farmerId
         })
@@ -70,14 +74,40 @@ export class FarmerService {
     }
 
     // update single farmer by id
-    async updateSingleFarmerById(farmerId: number, email?: string, name?: string, products?: Product[]) {
-
-        const farmerToUpdate = await this.farmerRepository
-        .createQueryBuilder()
-        .update(Farmer)
-        .set({ email: email, name: name, product: products })
-        .where("id = :id", { id: farmerId })
-        .execute()
+    async updateSingleFarmerById(farmerId: number, email?: string, name?: string, products?: Product[]): Promise<Farmer> {
+        const farmerToUpdate = await this.farmerRepository.findOneByOrFail({
+            id: farmerId
+        });
+        
+        if (email !== undefined) {
+            farmerToUpdate.email = email;
+        }
+        
+        if (name !== undefined) {
+            farmerToUpdate.name = name;
+        }
+        
+        await this.farmerRepository.save(farmerToUpdate);
+        
+        if (products && products.length > 0) {
+            const productRepository = this.productRepository;
+            
+            await productRepository.delete({ farmer: { id: farmerId } });
+            
+            const newProducts = products.map(productData => {
+                const product = new Product();
+                product.name = productData.name;
+                product.description = productData.description;
+                product.price = productData.price;
+                product.farmer = farmerToUpdate;
+                return product;
+            });
+            
+            await productRepository.save(newProducts);
+            
+            farmerToUpdate.product = newProducts;
+        }
+        
         return farmerToUpdate;
     }
 

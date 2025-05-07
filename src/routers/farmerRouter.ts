@@ -19,6 +19,7 @@ export class FarmerRouter{
         this.router.get('/', this.farmerController.getAllFarmers);
         this.router.post('/', this.farmerController.createNewFarmer);
         this.router.delete('/:id', this.farmerController.deleteExistingFarmer);
+        this.router.get('/:id', this.farmerController.getSingleFarmer);
     }
 
     public get router(): Router {
