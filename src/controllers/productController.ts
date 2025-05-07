@@ -17,4 +17,23 @@ export class productController{
         res.status(200).json({ allProducts });
         return;
     }
+
+    public getSingleProduct = async (req: Request, res: Response) => {
+        const productId = parseInt(req.params.id);
+        const singleProduct = await this.productService.getSingleProduct(productId);
+        res.status(200).json({ singleProduct });
+        return;
+    }
+
+    public deleteSingleProduct = async (req: Request, res: Response) => {
+        const productId = parseInt(req.params.id);
+        const deletedProd = await this.productService.deleteProduct(productId);
+        res.status(200).json({ deletedProd });
+        return;
+    }
+
+    public createProduct = async (req: Request, res: Response) => {
+        const { name, description, price, farmer } = req.body
+    }
+
 }

@@ -17,7 +17,7 @@ export class FarmerService {
 
     // get all farmers
     async getAllFarmers(): Promise<Farmer[]>{
-        return await this.farmerRepository.find()
+        return await this.farmerRepository.find({relations: { product: true }})
     }
 
     async getSingleFarmer(farmerId: number): Promise<Farmer> {
@@ -60,7 +60,7 @@ export class FarmerService {
         if (!farmerToDelete) {
             throw new Error(`Farmer with farmerId: ${farmerId} does not exist`);
         }
-        await this.productRepository.delete({ farmer: { id: farmerId } });
+
         await this.farmerRepository.delete(farmerId);
         return true;
     }
