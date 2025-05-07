@@ -33,8 +33,8 @@ export class productController{
     }
 
     public createProduct = async (req: Request, res: Response) => {
-        const { name, description, price, farmer } = req.body;
-        const createdProduct = await this.productService.createProduct(name, description, price, farmer);
+        const { name, description, price, farmerId } = req.body;
+        const createdProduct = await this.productService.createProduct(name, description, price, farmerId);
         res.status(200).json({ createdProduct });
         return;
     }
