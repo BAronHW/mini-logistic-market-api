@@ -1,7 +1,6 @@
 import { inject, injectable } from "inversify";
 import { FarmerService } from "../services/farmer.services";
 import { Request, Response } from "express";
-import { error } from "console";
 
 @injectable()
 export class FarmerController{

@@ -15,7 +15,6 @@ export class FarmerService {
         this.productRepository = AppDataSource.getRepository(Product);
     }
 
-    // get all farmers
     async getAllFarmers(): Promise<Farmer[]>{
         return await this.farmerRepository.find({relations: { product: true }})
     }
@@ -24,10 +23,7 @@ export class FarmerService {
         return await this.farmerRepository.findOne({ where: { id: farmerId }, relations: { product: true } })
     }
 
-    // create a new farmer
     async createNewFarmer(email: string, name: string, products: Product[]): Promise<Farmer>{
-
-        // map over the products array and create new products entry in the db
 
         const newFarmer = new Farmer();
         newFarmer.email = email;
@@ -50,7 +46,6 @@ export class FarmerService {
         return savedFarmer;
     }
 
-    // delete single farmer by id
     async deleteSingleFarmerById(farmerId: number): Promise<Boolean>{
         const farmerToDelete = await this.farmerRepository.findOne({
             where: {
@@ -65,7 +60,6 @@ export class FarmerService {
         return true;
     }
 
-    // get farmers product
     async getFarmersProduct(farmerId: number): Promise<Product[]> {
         const farmerById = await this.farmerRepository.findOneByOrFail({
             id: farmerId
@@ -73,7 +67,6 @@ export class FarmerService {
         return farmerById.product;
     }
 
-    // update single farmer by id
     async updateSingleFarmerById(farmerId: number, email?: string, name?: string, products?: Product[]): Promise<Farmer> {
         const farmerToUpdate = await this.farmerRepository.findOneByOrFail({
             id: farmerId

@@ -8,3 +8,18 @@ index listens to requests coming to the app -> the app has routers connected to 
 Repositories are like objects that allow you to interact with specific tables in the db
 
 get the injection lib setup so you dont have to inject it manually
+
+
+Part Two:
+
+Expanding on the existing project:
+
+more complex database relations
+
+Many-to-Many → Product <> Category
+
+db migrations - Kind of understand how to do this.
+
+Docker for the project
+
+convert to ESM Modules
