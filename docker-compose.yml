@@ -1,23 +1,56 @@
-x-common: &common 
-  logging: 
-    driver: "json-file" 
-    options: 
-      max-size: "500m" 
-      max-file: "5" 
-      compress: "true" 
-  restart: no 
+x-common: &common
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "500m"
+      max-file: "5"
+      compress: "true"
+  restart: unless-stopped  # Changed from 'no' to ensure services restart if they crash
 
-services: 
-  cockroachdb: 
-    <<: *common 
-    container_name: cockroachdb 
-    hostname: cockroachdb 
-    image: cockroachdb/cockroach:v23.2.5 
-    command: start-single-node --http-addr=0.0.0.0:8080 --insecure 
-    volumes: 
+services:
+  cockroachdb:
+    <<: *common
+    container_name: cockroachdb
+    hostname: cockroachdb
+    image: cockroachdb/cockroach:v23.2.5
+    command: start-single-node --http-addr=0.0.0.0:8080 --insecure
+    volumes:
       - ./cockroach-data:/cockroach/cockroach-data
-    environment: 
-      COCKROACH_DATABASE: sampledb 
-    ports: 
+    environment:
+      COCKROACH_DATABASE: defaultdb
+    ports:
       - 8383:8080
-      - 26257:26257 
+      - 26257:26257
+    expose:
+      - 26257
+    networks:
+      - app-network
+
+  express-api:
+    <<: *common
+    container_name: express-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: express-api
+    env_file:
+      - .env
+    command: npm run dev
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    depends_on:
+      - "cockroachdb"
+    environment:
+      DB_HOST: cockroachdb  # This is the container name of the CockroachDB service
+      DB_PORT: 26257
+      DB_NAME: defaultdb    # Match this with COCKROACH_DATABASE above
+      DB_USER: root
+      DB_PASSWORD: ""
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

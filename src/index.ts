@@ -10,6 +10,7 @@ import { container } from "./inversify.config";
 import { productController } from "./controllers/productController";
 import { ProductService } from "./services/product.services";
 import 'dotenv/config';
+
 AppDataSource.initialize()
   .then(() => {
     const container = new Container();

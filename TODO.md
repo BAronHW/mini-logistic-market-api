@@ -16,10 +16,10 @@ Expanding on the existing project:
 
 more complex database relations
 
-Many-to-Many → Product <> Category
+Many-to-Many → Product <> Category - TODO
 
 db migrations - Kind of understand how to do this.
 
-Docker for the project
+Docker for the project - DOING THIS
 
-convert to ESM Modules
+convert to ESM Modules - TODO

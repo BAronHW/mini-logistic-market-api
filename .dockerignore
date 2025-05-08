@@ -1,0 +1,8 @@
+node_modules
+cockroach-data
+npm-debug.log
+.git
+.env
+*.md
+build
+dist
