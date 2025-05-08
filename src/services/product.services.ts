@@ -41,4 +41,21 @@ export class ProductService {
         await this.productRepository.save(createdProduct);
         return createdProduct;
     }
+
+    async updateProductById(productId: number, name: string, description: string, price: number): Promise<Product> {
+        console.log('here')
+        const productToUpdate = await this.productRepository
+        .createQueryBuilder()
+        .select('product')
+        .from(Product, 'product')
+        .where('product.id = :id', { id: productId })
+        .getOne()
+
+        productToUpdate.name = name;
+        productToUpdate.description = description;
+        productToUpdate.price = price;
+        const savedUpdatedFarmer = await this.productRepository.save(productToUpdate);
+        console.log(savedUpdatedFarmer);
+        return savedUpdatedFarmer;
+    }
 }

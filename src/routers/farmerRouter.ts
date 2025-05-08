@@ -15,11 +15,12 @@ export class FarmerRouter{
         this.init();
     }
 
-    private init(): void{
+    private init(): void {
         this.router.get('/', this.farmerController.getAllFarmers);
         this.router.post('/', this.farmerController.createNewFarmer);
         this.router.delete('/:id', this.farmerController.deleteExistingFarmer);
         this.router.get('/:id', this.farmerController.getSingleFarmer);
+        this.router.put('/:id', this.farmerController.updateExistingFarmer);
     }
 
     public get router(): Router {

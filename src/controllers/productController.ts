@@ -60,4 +60,18 @@ export class productController{
         
     }
 
+    public updateProduct = async (req: Request, res: Response) => {
+        try{
+            const productId = parseInt(req.params.id);
+            console.log(productId);
+            const { name, description, price } = req.body;
+            console.log(name, description, price)
+            const updateProduct = await this.productService.updateProductById(productId, name, description, price);
+            res.status(200).json({ updateProduct });
+            return;
+        }catch(error) {
+            res.status(500).send({ message: 'Internal server error', error: error.message });
+        }
+    }
+
 } 

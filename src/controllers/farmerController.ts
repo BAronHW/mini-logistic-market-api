@@ -2,7 +2,6 @@ import { inject, injectable } from "inversify";
 import { FarmerService } from "../services/farmer.services";
 import { Request, Response } from "express";
 import { error } from "console";
-// try catch all
 
 @injectable()
 export class FarmerController{
@@ -61,7 +60,19 @@ export class FarmerController{
             console.log(error);
             res.status(500).send({ message: 'Internal server error', error: error.message });
         }
-        
+    }
+
+    public updateExistingFarmer = async (req: Request, res: Response) => {
+        try {
+            const farmerToUpdate = parseInt(req.params.id);
+            const { name, email, products } = req.body;
+            const updatedFarmer = await this.farmerService.updateSingleFarmerById(farmerToUpdate, email, name, products)
+            res.status(200).json({ updatedFarmer });
+            return;
+        }catch(error: any) {
+            console.log(error);
+            res.status(500).send({ message: 'Internal server error', error: error.message });
+        }
     }
 
 }
