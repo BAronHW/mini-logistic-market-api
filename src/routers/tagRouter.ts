@@ -1,5 +1,4 @@
 import { inject, injectable } from "inversify";
-import { productController } from "../controllers/productController";
 import { Router } from "express";
 import { TagController } from "../controllers/tagController";
 

@@ -12,14 +12,15 @@ export const AppDataSource = new DataSource({
     username: process.env.DB_USER || "root",
     password: process.env.DB_PASSWORD || "",
     database: process.env.DB_NAME || "sampledb",
-    synchronize: true,
+    synchronize: false,
     logging: true,
     entities: [Farmer, Product, Tag],
-    migrations: ['src/migrations/*.ts'],
+    migrations: ['src/migrations/**/*.ts'],
     migrationsTableName: '_migrations',
     subscribers: [],
     timeTravelQueries: false,
     ssl: false
+    
 })
 
 console.log("Database connection config:", {
