@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, ManyToMany, JoinTable } from "typeorm"
 import { Farmer } from "./Farmer"
+import { Tag } from "./Tag"
 @Entity()
 export class Product{
     @PrimaryGeneratedColumn()
@@ -24,6 +25,10 @@ export class Product{
         onDelete: 'CASCADE'
     })
     farmer: Farmer
+
+    @ManyToMany(() => Tag, (tag) => tag.products)
+    @JoinTable()
+    tags: Tag[]
 
     toJSON() {
         return {
