@@ -3,6 +3,7 @@ import { DataSource } from "typeorm"
 import { Farmer } from "./entity/Farmer"
 import { Product } from "./entity/Product"
 import 'dotenv/config'
+import { Tag } from "./entity/Tag"
 
 export const AppDataSource = new DataSource({
     type: 'cockroachdb',
@@ -11,10 +12,11 @@ export const AppDataSource = new DataSource({
     username: process.env.DB_USER || "root",
     password: process.env.DB_PASSWORD || "",
     database: process.env.DB_NAME || "sampledb",
-    synchronize: false,
+    synchronize: true,
     logging: true,
-    entities: [Farmer, Product],
-    migrations: [],
+    entities: [Farmer, Product, Tag],
+    migrations: ['src/migrations/*.ts'],
+    migrationsTableName: '_migrations',
     subscribers: [],
     timeTravelQueries: false,
     ssl: false

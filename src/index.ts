@@ -4,12 +4,14 @@ import { AppDataSource } from "./data-source";
 import { Farmer } from "./entity/Farmer";
 import { FarmerController } from "./controllers/farmerController";
 import { FarmerService } from "./services/farmer.services";
-import { FarmerRouter, productRouter } from "./routers";
+import { FarmerRouter, productRouter, TagRouter } from "./routers";
 import { Container } from "inversify";
 import { container } from "./inversify.config";
 import { productController } from "./controllers/productController";
 import { ProductService } from "./services/product.services";
 import 'dotenv/config';
+import { TagController } from "./controllers/tagController";
+import { TagService } from "./services/tag.services";
 
 AppDataSource.initialize()
   .then(() => {
@@ -20,6 +22,9 @@ AppDataSource.initialize()
     container.bind(ProductService).toSelf();
     container.bind(productController).toSelf();
     container.bind(productRouter).toSelf();
+    container.bind(TagService).toSelf();
+    container.bind(TagController).toSelf();
+    container.bind(TagRouter).toSelf();
     container.bind(App).toSelf();
     
     const application = container.get(App);

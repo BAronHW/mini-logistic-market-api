@@ -38,6 +38,5 @@ export class Product{
             price: this.price
         };
     }
-
-
+    
 }

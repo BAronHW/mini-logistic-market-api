@@ -20,6 +20,6 @@ Many-to-Many → Product <> Category - TODO
 
 db migrations - Kind of understand how to do this.
 
-Docker for the project - DOING THIS
+Docker for the project - DONE
 
 convert to ESM Modules - TODO

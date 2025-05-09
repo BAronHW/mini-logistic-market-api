@@ -16,11 +16,17 @@ export class FarmerService {
     }
 
     async getAllFarmers(): Promise<Farmer[]>{
-        return await this.farmerRepository.find({relations: { product: true }})
+        return await this.farmerRepository.find({relations: { 
+            product: true 
+        }})
     }
 
     async getSingleFarmer(farmerId: number): Promise<Farmer> {
-        return await this.farmerRepository.findOne({ where: { id: farmerId }, relations: { product: true } })
+        return await this.farmerRepository.findOne({ where: { id: farmerId }, relations: { 
+            product: {
+                tags: true
+            }
+        }})
     }
 
     async createNewFarmer(email: string, name: string, products: Product[]): Promise<Farmer>{

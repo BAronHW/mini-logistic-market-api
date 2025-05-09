@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import cors from 'cors'
-import { FarmerRouter, productRouter, } from './routers';
+import { FarmerRouter, productRouter, TagRouter, } from './routers';
 import { inject, injectable } from 'inversify';
 
 @injectable()
@@ -10,7 +10,8 @@ export class App {
 
     constructor(
         @inject(FarmerRouter) private farmerRouter: FarmerRouter,
-        @inject(productRouter) private productRouter: productRouter
+        @inject(productRouter) private productRouter: productRouter,
+        @inject(TagRouter) private tagRouter: TagRouter
         
     ){
         this._app = express()
@@ -31,6 +32,7 @@ export class App {
         // not yet implemented
         this._app.use('/api/farmers',this.farmerRouter.router)
         this._app.use('/api/products', this.productRouter.router)
+        this._app.use('/api/tags', this.tagRouter.router)
     }
 
     public get app(): express.Application{
