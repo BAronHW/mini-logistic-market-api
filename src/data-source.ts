@@ -5,8 +5,8 @@ import { Product } from "./entity/Product"
 import 'dotenv/config'
 import { Tag } from "./entity/Tag"
 
-export const AppDataSource = new DataSource({
-    type: 'cockroachdb',
+export default new DataSource({
+    type: 'postgres',
     host: process.env.DB_HOST || "cockroachdb",
     port: parseInt(process.env.DB_PORT) || 26257,
     username: process.env.DB_USER || "root",
@@ -15,10 +15,9 @@ export const AppDataSource = new DataSource({
     synchronize: false,
     logging: true,
     entities: [Farmer, Product, Tag],
-    migrations: ['src/migrations/**/*.ts'],
+    migrations: ['build/*{.ts,.js}'],
     migrationsTableName: '_migrations',
     subscribers: [],
-    timeTravelQueries: false,
     ssl: false
     
 })

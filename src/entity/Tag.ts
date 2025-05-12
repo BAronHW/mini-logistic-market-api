@@ -12,6 +12,9 @@ export class Tag {
     @Column()
     description: string
 
+    @Column()
+    level: string
+
     @ManyToMany(() => Product, (product) => product.tags)
     products: Product[]
 
