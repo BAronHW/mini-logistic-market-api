@@ -1,10 +1,9 @@
-import "reflect-metadata"
-import { DataSource } from "typeorm"
-import { Farmer } from "./entity/Farmer.js"
-import { Product } from "./entity/Product.js"
-import 'dotenv/config.js'
-import { Tag } from "./entity/Tag.js"
-
+import "reflect-metadata";
+import { DataSource } from "typeorm";
+import { Farmer } from "./entity/Farmer.js";
+import { Product } from "./entity/Product.js";
+import 'dotenv/config.js';
+import { Tag } from "./entity/Tag.js";
 export const AppDataSource = new DataSource({
     type: 'postgres',
     host: process.env.DB_HOST || "cockroachdb",
@@ -19,9 +18,7 @@ export const AppDataSource = new DataSource({
     migrationsTableName: '_migrations',
     subscribers: [],
     ssl: false
-    
-})
-
+});
 console.log("Database connection config:", {
     host: process.env.DB_HOST || "cockroachdb",
     port: parseInt(process.env.DB_PORT || "26257"),
@@ -29,3 +26,4 @@ console.log("Database connection config:", {
     username: process.env.DB_USER || "root",
     type: 'cockroachdb'
 });
+//# sourceMappingURL=data-source.js.map

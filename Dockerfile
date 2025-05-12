@@ -9,6 +9,8 @@ RUN npm install
 # copy all of the files except for the ones in the dockerignore file
 COPY . .
 
+RUN npm run build
+
 # Expose the port the app runs on
 EXPOSE 3000
 

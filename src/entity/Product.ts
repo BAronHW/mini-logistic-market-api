@@ -1,6 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, ManyToMany, JoinTable } from "typeorm"
-import { Farmer } from "./Farmer.js"
-import { Tag } from "./Tag.js"
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, ManyToMany, JoinTable, Relation } from "typeorm"
+import { Farmer } from './Farmer.js';
+import { Tag } from "./Tag.js";
 @Entity()
 export class Product{
     @PrimaryGeneratedColumn()
@@ -24,7 +24,7 @@ export class Product{
     @ManyToOne(() => Farmer, (farmer) => farmer.product, {
         onDelete: 'CASCADE'
     })
-    farmer: Farmer
+    farmer: Relation<Farmer>
 
     @ManyToMany(() => Tag, (tag) => tag.products)
     @JoinTable()

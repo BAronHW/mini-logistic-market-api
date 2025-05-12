@@ -27,7 +27,7 @@ export class FarmerController{
     
     public getSingleFarmer = async (req: Request, res: Response) => {
         try{
-            const id  = parseInt(req.params.id)
+            const id  = req.params.id
             const farmer = await this.farmerService.getSingleFarmer(id)
             res.status(200).json({ farmer });
             return;

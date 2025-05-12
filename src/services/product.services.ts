@@ -34,7 +34,7 @@ export class ProductService {
     }
 
     async createProduct(name: string, description: string, price: number, farmerId: number): Promise<Product> {
-        const farmerWhoOwnsProd = await this.farmerRepository.findOneByOrFail({ id: farmerId });
+        const farmerWhoOwnsProd = await this.farmerRepository.createQueryBuilder().select().where("id = :id", { id: farmerId }).execute();
         const createdProduct = new Product();
         createdProduct.name = name;
         createdProduct.description = description;

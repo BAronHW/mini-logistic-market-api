@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn, PrimaryGeneratedColumn, Relation } from "typeorm";
 import { Product } from "./Product.js";
 
 @Entity()
@@ -11,9 +11,6 @@ export class Tag {
 
     @Column()
     description: string
-
-    @Column()
-    level: string
 
     @ManyToMany(() => Product, (product) => product.tags)
     products: Product[]
