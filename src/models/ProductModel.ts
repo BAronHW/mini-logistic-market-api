@@ -1,4 +1,4 @@
-import { Farmer } from "./FarmerModel"
+import { Farmer } from "./FarmerModel.js"
 
 export interface Product {
     

@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, ManyToMany, JoinTable } from "typeorm"
-import { Farmer } from "./Farmer"
-import { Tag } from "./Tag"
+import { Farmer } from "./Farmer.js"
+import { Tag } from "./Tag.js"
 @Entity()
 export class Product{
     @PrimaryGeneratedColumn()

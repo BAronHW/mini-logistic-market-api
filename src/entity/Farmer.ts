@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm"
-import { Product } from "./Product"
+import { Product } from "./Product.js"
 @Entity()
 export class Farmer {
 

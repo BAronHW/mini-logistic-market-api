@@ -1,17 +1,17 @@
-import { App } from "./app";
+import { App } from "./app.js";
 import "reflect-metadata"
-import { AppDataSource } from "./data-source";
-import { Farmer } from "./entity/Farmer";
-import { FarmerController } from "./controllers/farmerController";
-import { FarmerService } from "./services/farmer.services";
-import { FarmerRouter, productRouter, TagRouter } from "./routers";
+import { AppDataSource } from "./data-source.js";
+import { Farmer } from "./entity/Farmer.js";
+import { FarmerController } from "./controllers/farmerController.js";
+import { FarmerService } from "./services/farmer.services.js";
+import { FarmerRouter, productRouter, TagRouter } from "./routers/index.js";
 import { Container } from "inversify";
-import { container } from "./inversify.config";
-import { productController } from "./controllers/productController";
-import { ProductService } from "./services/product.services";
-import 'dotenv/config';
-import { TagController } from "./controllers/tagController";
-import { TagService } from "./services/tag.services";
+import { container } from "./inversify.config.js";
+import { productController } from "./controllers/productController.js";
+import { ProductService } from "./services/product.services.js";
+import 'dotenv/config.js';
+import { TagController } from "./controllers/tagController.js";
+import { TagService } from "./services/tag.services.js";
 
 AppDataSource.initialize()
   .then(() => {

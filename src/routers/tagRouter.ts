@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { Router } from "express";
-import { TagController } from "../controllers/tagController";
+import { TagController } from "../controllers/tagController.js";
 
 @injectable()
 export class TagRouter {

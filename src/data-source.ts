@@ -1,11 +1,11 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
-import { Farmer } from "./entity/Farmer"
-import { Product } from "./entity/Product"
-import 'dotenv/config'
-import { Tag } from "./entity/Tag"
+import { Farmer } from "./entity/Farmer.js"
+import { Product } from "./entity/Product.js"
+import 'dotenv/config.js'
+import { Tag } from "./entity/Tag.js"
 
-export default new DataSource({
+export const AppDataSource = new DataSource({
     type: 'postgres',
     host: process.env.DB_HOST || "cockroachdb",
     port: parseInt(process.env.DB_PORT) || 26257,

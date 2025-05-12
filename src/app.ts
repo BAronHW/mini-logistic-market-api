@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import cors from 'cors'
-import { FarmerRouter, productRouter, TagRouter, } from './routers';
+import { FarmerRouter, productRouter, TagRouter, } from './routers/index.js';
 import { inject, injectable } from 'inversify';
 
 @injectable()

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { FarmerController } from "../controllers/farmerController";
+import { FarmerController } from "../controllers/farmerController.js";
 import { inject } from "inversify";
 
 export class FarmerRouter{

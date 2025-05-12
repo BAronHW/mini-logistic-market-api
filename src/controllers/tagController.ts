@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { TagService } from "../services/tag.services";
+import { TagService } from "../services/tag.services.js";
 import { Request, Response } from "express";
 
 @injectable()

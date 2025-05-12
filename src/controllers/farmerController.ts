@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { FarmerService } from "../services/farmer.services";
+import { FarmerService } from "../services/farmer.services.js";
 import { Request, Response } from "express";
 
 @injectable()

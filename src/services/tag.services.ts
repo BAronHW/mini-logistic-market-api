@@ -1,8 +1,8 @@
 import { In, Repository } from "typeorm";
-import { Tag } from "../entity/Tag";
-import { AppDataSource } from "../data-source";
+import { Tag } from "../entity/Tag.js";
+import { AppDataSource } from "../data-source.js";
 import { threadId } from "worker_threads";
-import { Product } from "../entity/Product";
+import { Product } from "../entity/Product.js";
 import { injectable } from "inversify";
 
 @injectable()

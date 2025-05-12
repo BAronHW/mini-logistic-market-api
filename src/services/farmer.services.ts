@@ -1,8 +1,8 @@
 import { Repository } from "typeorm";
-import { Farmer } from "../entity/Farmer";
-import { AppDataSource } from "../data-source";
+import { Farmer } from "../entity/Farmer.js";
+import { AppDataSource } from "../data-source.js";
 import { injectable } from "inversify";
-import { Product } from "../entity/Product";
+import { Product } from "../entity/Product.js";
 
 @injectable()
 export class FarmerService {

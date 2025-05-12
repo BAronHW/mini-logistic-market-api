@@ -1,4 +1,4 @@
-import { Product } from "./ProductModel"
+import { Product } from "./ProductModel.js"
 // maybe implement some DTO of some sort
 export interface Farmer {
 
